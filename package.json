@@ -8,5 +8,8 @@
     "karma-junit-reporter" : "~0.1",
     "karma-jasmine" : "~0.1",
     "karma-ng-scenario" : "~0.1"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
