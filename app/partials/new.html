@@ -1,6 +1,77 @@
-<form>
-	
-	<button>Submit</button>
-</form>
+<form id="answerForm" action="" method="POST" >
+      <input type="submit" class="button">
+        <div ng-repeat='answer in answers' id='div{{answer.uid}}'>{{answer.uid}}: <input class="answerInput" id="{{answer.uid}}" type="text" placeholder="answer" value="{{answer.answer}}"></div> 
+    </form>
 
+  <script>
+    function serializeData(){
+      var data = '';
+      var l = $('.answerInput').length;
+      for(var i =0; i < l; i++){
+        var thisAnswer = $('.answerInput')[i];
+        data += $(thisAnswer).attr('id') + '=' + $(thisAnswer).val() + '&'; 
+      }
+      console.log(data);
+      return data;
+    }
+    $(document).keypress(function(e) {
+      
+        if(e.which == 13) {
+          var n =  $('.answerInput').length+1;
+          var myInput = 
+          '<div id="div' + n + '">' + 
+          n + ': <input class="answerInput" id="' + n +
+          '" type="text" placeholder="answer"></div>';
 
+          $('#answerForm').append(myInput);
+          $("#"+n).focus();
+          //alert('enter!');
+        };
+        if(e.keyCode == 8){
+          var $focused = $(':focus');
+          //alert($focused.val());
+          var eq = $focused.val() == '';
+          //console.log("equal?: "+ eq);
+          if (eq) {
+
+            var newFocusedId = Number($focused.attr('id')) -1;
+            console.log('#div' + Number($focused.attr('id')));
+            $removeElement = $('#div' + Number($focused.attr('id')));
+            $removeElement.remove();
+            $('#'+newFocusedId).focus();
+            console.log('removing');
+            console.log($removeElement);
+          } else {
+            console.log('element not empty');
+          }
+        };
+    });
+
+    $(function() {
+      $('.error').hide();
+      $(".button").click(function() {
+        // validate and process form here
+                //var dataString = 'name='+ name + '&email=' + email + '&phone=' + phone;
+        //alert (dataString);return false;
+        //var dataString = "name='foo'";
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/answers/create",
+          data: serializeData(),
+          success: function() {
+            /*
+            $('#contact_form').html("<div id='message'></div>");
+            $('#message').html("<h2>Contact Form Submitted!</h2>")
+            .append("<p>We will be in touch soon.</p>")
+            .hide()
+            .fadeIn(1500, function() {
+              $('#message').append("<img id='checkmark' src='images/check.png' />");
+            });
+            */
+          }
+        });
+        return false;
+      });        
+    });
+  
+  </script>

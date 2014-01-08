@@ -17,6 +17,21 @@ angular.module('myApp.controllers', []).
   .controller('MyCtrl2', [function() {
 
   }])
+  .controller('AnswerCtrl', ['$scope', '$http', '$routeParams', '$log',
+  	function($scope, $http, $routeParams, $log){
+  		var url = 'http://localhost:3000/answers/show/' +  $routeParams.uid +'.json?callback=JSON_CALLBACK';
+
+		$http.jsonp(url).		
+			success(function(data) {
+				$log.info('success');
+	      		$scope.answer = data;
+	      		$log.info(data);
+	    	}).
+	    	error(function(data,  status, headers, config){
+	    		$log.info('error');
+    	});
+
+  }])
   .controller('NewCtrl', ['$scope', '$http', '$log',
   	function($scope,$http, $log) {
   		//$scope.answers = [{'1':'a'}];
@@ -30,13 +45,11 @@ angular.module('myApp.controllers', []).
 			$log.info(response.data);
 			$scope.data = response.data;
 		});*/
-		
 			success(function(data) {
 				$log.info('success');
 	      		$scope.answers = data;
 	      		//$scope.answers = [{'1':'a'}];
 	      		$log.info(data);
-	      		$log.log(data);
 	    	}).
 	    	error(function(data,  status, headers, config){
 	    		$scope.answers = data;
