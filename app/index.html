@@ -17,11 +17,9 @@
 
   <div>Angular seed app: v<span app-version></span></div>
 
-    <form id="answerForm" action="" method="POST">
+    <form id="answerForm" action="" method="POST" >
       <input type="submit" class="button">
-
-      <div class='div1'>1: <input class="answerInput" id="1" type="text" placeholder="answer"></div>
-
+        <div ng-repeat='answer in answers' class='div{{answer.uid}}'>{{answer.uid}}: <input class="answerInput" id="{{answer.uid}}" type="text" placeholder="answer" value="{{answer.answer}}"></div> 
     </form>
     <li ng-repeat='answer in answers'>
       {{answer.answer}}
