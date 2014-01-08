@@ -23,15 +23,25 @@
   </form>
 
   <script>
+    function serializeData(){
+      var data = '';
+      var l = $('.answerInput').length;
+      for(var i =0; i < l; i++){
+        var thisAnswer = $('.answerInput')[i];
+        data += $(thisAnswer).attr('id') + '=' + $(thisAnswer).val() + '&'; 
+      }
+      console.log(data);
+      return data;
+    }
     $(document).keypress(function(e) {
       
         if(e.which == 13) {
           var n =  $('.answerInput').length+1;
           var myInput = 
           '<div id="div' + n + '">' + 
-          n + 
-          ': <input class="answerInput" id="'+n+
+          n + ': <input class="answerInput" id="' + n +
           '" type="text" placeholder="answer"></div>';
+
           $('#answerForm').append(myInput);
           $("#"+n).focus();
           //alert('enter!');
@@ -56,11 +66,11 @@
         // validate and process form here
                 //var dataString = 'name='+ name + '&email=' + email + '&phone=' + phone;
         //alert (dataString);return false;
-        var dataString = "my data ";
+        //var dataString = "name='foo'";
         $.ajax({
           type: "POST",
-          url: "http://localhost:3000/",
-          data: dataString,
+          url: "http://localhost:3000/answers/create",
+          data: serializeData(),
           success: function() {
             /*
             $('#contact_form').html("<div id='message'></div>");
