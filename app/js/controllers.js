@@ -8,4 +8,8 @@ angular.module('myApp.controllers', []).
   }])
   .controller('MyCtrl2', [function() {
 
-  }]);
+  }])
+  .controller('NewCtrl', [function() {
+
+  }])
+  ;
