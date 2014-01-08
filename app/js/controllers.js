@@ -2,6 +2,14 @@
 
 /* Controllers */
 
+function jsonp_callback(data) {
+	console.log(data);
+	//$scope.answers = data;
+    // returning from async callbacks is (generally) meaningless
+    //$log.info(data);
+    //$log.info("jsonp_callback");
+}
+
 angular.module('myApp.controllers', []).
   controller('MyCtrl1', [function() {
 
@@ -11,8 +19,34 @@ angular.module('myApp.controllers', []).
   }])
   .controller('NewCtrl', ['$scope', '$http', '$log',
   	function($scope,$http, $log) {
-		$http.get('http://localhost:3000/answers/').success(function(data) {
-      		$scope.answers = data;
-      		$log.info(data);
+  		//$scope.answers = [{'1':'a'}];
+  		var url = 'http://localhost:3000/answers?callback=JSON_CALLBACK';
+  		//var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=jsonp_callback";
+
+		$http.jsonp(url).
+		/*
+		then(function(response){
+			$log.info(response);
+			$log.info(response.data);
+			$scope.data = response.data;
+		});*/
+		
+			success(function(data) {
+				$log.info('success');
+	      		$scope.answers = data;
+	      		//$scope.answers = [{'1':'a'}];
+	      		$log.info(data);
+	      		$log.log(data);
+	    	}).
+	    	error(function(data,  status, headers, config){
+	    		$scope.answers = data;
+	    		$log.info('error');
+	    		//$scope.answers = [{'1':'a'}];
+	    		 $log.info(status);
+	    		 $log.info(headers);
+	    		 $log.info(config);
+	    		 $log.info(data);
+	      		//$log.log(data);
     	});
+	
   }]);
