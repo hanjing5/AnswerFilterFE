@@ -19,7 +19,9 @@ angular.module('myApp.controllers', []).
   }])
   .controller('AnswerCtrl', ['$scope', '$http', '$routeParams', '$log',
   	function($scope, $http, $routeParams, $log){
-  		var url = 'http://localhost:3000/answers/show/' +  $routeParams.uid +'.json?callback=JSON_CALLBACK';
+
+  		//var url = 'http://localhost:3000/answers/show/' +  $routeParams.uid +'.json?callback=JSON_CALLBACK';
+		var url = 'http://hansgmatstudyapp.herokuapp.com/answers/show/' +  $routeParams.uid +'.json?callback=JSON_CALLBACK';
 
 		$http.jsonp(url).		
 			success(function(data) {
@@ -35,7 +37,9 @@ angular.module('myApp.controllers', []).
   .controller('NewCtrl', ['$scope', '$http', '$log',
   	function($scope,$http, $log) {
   		//$scope.answers = [{'1':'a'}];
-  		var url = 'http://localhost:3000/answers?callback=JSON_CALLBACK';
+  		//var url = 'http://localhost:3000/answers?callback=JSON_CALLBACK';
+  		var url = 'http://hansgmatstudyapp.herokuapp.com/answers?callback=JSON_CALLBACK';
+
   		//var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts?callback=jsonp_callback";
 
 		$http.jsonp(url).
