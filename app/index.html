@@ -10,10 +10,17 @@
 <body ng-controller='NewCtrl'>
   <div class="row">
 
-  <ul class="menu">
-    <li><a href="#/new">new</a></li>
-    <li><a href="#/answers/1">start</a></li>
-  </ul>
+  <nav class="top-bar" data-topbar> 
+    <ul class="title-area"> 
+      <li class="name"> <h1><a href="#">Home</a></h1> </li> 
+    </ul> 
+    <section class="top-bar-section"> <!-- Right Nav Section --> 
+      <ul class="left"> 
+        <li><a href="#/new">New</a></li> 
+        <li><a href="#/answers/1">Start</a></li> 
+      </ul> 
+    </section> 
+  </nav>
 
   <div ng-view></div>
 
